@@ -50,13 +50,31 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
     },
   },
   gifts: {
-    title: "Mesa de Regalos",
-    subtitle:
+    sectionTitle: "Mesa de Regalos",
+    sectionSubtitle:
       "Tu presencia es nuestro mejor regalo. Si deseas obsequiarnos algo, aquí tienes nuestra información:",
-    bank: "Santander",
-    accountName: "Oswaldo Aguayo Muñoz",
-    clabe: "014320568163438905",
-    concept: "Regalo de boda",
+    bankTransfer: {
+      enabled: true,
+      title: "Transferencia bancaria",
+      bank: "Santander",
+      accountName: "Oswaldo Aguayo Muñoz",
+      clabe: "014320568163438905",
+      concept: "Regalo de boda",
+    },
+    liverpool: {
+      enabled: false,
+      title: "Liverpool",
+      eventNumber: "",
+      url: "https://www.liverpool.com.mx",
+      description: "Mesa de regalos en Liverpool",
+    },
+    custom: {
+      enabled: false,
+      title: "Otra mesa de regalos",
+      description: "También contamos con mesa de regalos en otra tienda.",
+      url: "",
+      reference: "",
+    },
   },
   heroImage: "/boda/optimized/hero.jpg",
   galleryImages: [
@@ -73,10 +91,6 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
     { id: 11, src: "/boda/optimized/gallery-11.jpg", alt: "Nuestra aventura" },
     { id: 12, src: "/boda/optimized/gallery-12.jpg", alt: "Para siempre" },
   ],
-  music: {
-    enabled: true,
-    url: "/music/romantic.mp3",
-  },
   envelope: {
     enabled: true,
     message: "Estás invitado a nuestra boda",

@@ -5,7 +5,6 @@ import Image from "next/image";
 import {
   Save,
   Image as ImageIcon,
-  Music,
   Mail,
   Heart,
   Palette,
@@ -16,6 +15,7 @@ import {
   Plus,
   Trash2,
   Shirt,
+  MailOpen,
 } from "lucide-react";
 import type { SiteConfig, TimelineEvent } from "@/types/site-config";
 
@@ -580,106 +580,346 @@ export function AdminCustomize() {
           <Gift className="h-5 w-5 text-[#8b9d83]" />
           Mesa de regalos
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="mb-6 grid gap-4 sm:grid-cols-2">
           <div className="sm:col-span-2">
-            <label className={labelClass}>Título</label>
+            <label className={labelClass}>Título de la sección</label>
             <input
               className={inputClass}
-              value={config.gifts.title}
-              onChange={(e) =>
-                setConfig({ ...config, gifts: { ...config.gifts, title: e.target.value } })
-              }
-            />
-          </div>
-          <div className="sm:col-span-2">
-            <label className={labelClass}>Subtítulo</label>
-            <textarea
-              className={inputClass}
-              rows={2}
-              value={config.gifts.subtitle}
-              onChange={(e) =>
-                setConfig({ ...config, gifts: { ...config.gifts, subtitle: e.target.value } })
-              }
-            />
-          </div>
-          <div>
-            <label className={labelClass}>Banco</label>
-            <input
-              className={inputClass}
-              value={config.gifts.bank}
-              onChange={(e) =>
-                setConfig({ ...config, gifts: { ...config.gifts, bank: e.target.value } })
-              }
-            />
-          </div>
-          <div>
-            <label className={labelClass}>Titular</label>
-            <input
-              className={inputClass}
-              value={config.gifts.accountName}
+              value={config.gifts.sectionTitle}
               onChange={(e) =>
                 setConfig({
                   ...config,
-                  gifts: { ...config.gifts, accountName: e.target.value },
+                  gifts: { ...config.gifts, sectionTitle: e.target.value },
                 })
               }
             />
           </div>
-          <div>
-            <label className={labelClass}>CLABE</label>
-            <input
+          <div className="sm:col-span-2">
+            <label className={labelClass}>Subtítulo de la sección</label>
+            <textarea
               className={inputClass}
-              value={config.gifts.clabe}
+              rows={2}
+              value={config.gifts.sectionSubtitle}
               onChange={(e) =>
-                setConfig({ ...config, gifts: { ...config.gifts, clabe: e.target.value } })
-              }
-            />
-          </div>
-          <div>
-            <label className={labelClass}>Concepto</label>
-            <input
-              className={inputClass}
-              value={config.gifts.concept}
-              onChange={(e) =>
-                setConfig({ ...config, gifts: { ...config.gifts, concept: e.target.value } })
+                setConfig({
+                  ...config,
+                  gifts: { ...config.gifts, sectionSubtitle: e.target.value },
+                })
               }
             />
           </div>
         </div>
-      </section>
 
-      {/* Experiencia */}
-      <section className="rounded-sm border border-[#e0d8cc] bg-white p-6">
-        <h2 className="mb-4 flex items-center gap-2 font-serif text-xl text-[#2c2c2c]">
-          <Music className="h-5 w-5 text-[#8b9d83]" />
-          Experiencia
-        </h2>
-        <div className="space-y-4">
-          <label className="flex items-center gap-2 text-sm">
+        {/* Transferencia bancaria */}
+        <div className="mb-6 rounded-sm border border-[#e0d8cc] p-4">
+          <label className="mb-4 flex items-center gap-2 text-sm font-medium text-[#2c2c2c]">
             <input
               type="checkbox"
-              checked={config.music.enabled}
+              checked={config.gifts.bankTransfer.enabled}
               onChange={(e) =>
-                setConfig({ ...config, music: { ...config.music, enabled: e.target.checked } })
+                setConfig({
+                  ...config,
+                  gifts: {
+                    ...config.gifts,
+                    bankTransfer: {
+                      ...config.gifts.bankTransfer,
+                      enabled: e.target.checked,
+                    },
+                  },
+                })
               }
             />
-            Música de fondo
+            Mostrar transferencia bancaria
           </label>
-          <div>
-            <label className={labelClass}>URL de música (MP3)</label>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="sm:col-span-2">
+              <label className={labelClass}>Título</label>
+              <input
+                className={inputClass}
+                value={config.gifts.bankTransfer.title}
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      bankTransfer: {
+                        ...config.gifts.bankTransfer,
+                        title: e.target.value,
+                      },
+                    },
+                  })
+                }
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Banco</label>
+              <input
+                className={inputClass}
+                value={config.gifts.bankTransfer.bank}
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      bankTransfer: {
+                        ...config.gifts.bankTransfer,
+                        bank: e.target.value,
+                      },
+                    },
+                  })
+                }
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Titular</label>
+              <input
+                className={inputClass}
+                value={config.gifts.bankTransfer.accountName}
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      bankTransfer: {
+                        ...config.gifts.bankTransfer,
+                        accountName: e.target.value,
+                      },
+                    },
+                  })
+                }
+              />
+            </div>
+            <div>
+              <label className={labelClass}>CLABE</label>
+              <input
+                className={inputClass}
+                value={config.gifts.bankTransfer.clabe}
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      bankTransfer: {
+                        ...config.gifts.bankTransfer,
+                        clabe: e.target.value,
+                      },
+                    },
+                  })
+                }
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Concepto</label>
+              <input
+                className={inputClass}
+                value={config.gifts.bankTransfer.concept}
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      bankTransfer: {
+                        ...config.gifts.bankTransfer,
+                        concept: e.target.value,
+                      },
+                    },
+                  })
+                }
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Liverpool */}
+        <div className="mb-6 rounded-sm border border-[#e0d8cc] p-4">
+          <label className="mb-4 flex items-center gap-2 text-sm font-medium text-[#2c2c2c]">
             <input
-              className={inputClass}
-              value={config.music.url}
-              placeholder="/music/romantic.mp3"
+              type="checkbox"
+              checked={config.gifts.liverpool.enabled}
               onChange={(e) =>
-                setConfig({ ...config, music: { ...config.music, url: e.target.value } })
+                setConfig({
+                  ...config,
+                  gifts: {
+                    ...config.gifts,
+                    liverpool: { ...config.gifts.liverpool, enabled: e.target.checked },
+                  },
+                })
               }
             />
-            <p className="mt-1 text-xs text-[#6b6358]">
-              Usa <code>/music/romantic.mp3</code> para el archivo incluido, o pega una URL
-              externa.
-            </p>
+            Mostrar mesa Liverpool
+          </label>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label className={labelClass}>Título</label>
+              <input
+                className={inputClass}
+                value={config.gifts.liverpool.title}
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      liverpool: { ...config.gifts.liverpool, title: e.target.value },
+                    },
+                  })
+                }
+              />
+            </div>
+            <div>
+              <label className={labelClass}>No. de evento</label>
+              <input
+                className={inputClass}
+                value={config.gifts.liverpool.eventNumber}
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      liverpool: {
+                        ...config.gifts.liverpool,
+                        eventNumber: e.target.value,
+                      },
+                    },
+                  })
+                }
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className={labelClass}>URL de la mesa</label>
+              <input
+                className={inputClass}
+                value={config.gifts.liverpool.url}
+                placeholder="https://www.liverpool.com.mx/..."
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      liverpool: { ...config.gifts.liverpool, url: e.target.value },
+                    },
+                  })
+                }
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className={labelClass}>Descripción</label>
+              <textarea
+                className={inputClass}
+                rows={2}
+                value={config.gifts.liverpool.description}
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      liverpool: {
+                        ...config.gifts.liverpool,
+                        description: e.target.value,
+                      },
+                    },
+                  })
+                }
+              />
+            </div>
           </div>
+        </div>
+
+        {/* Otra mesa */}
+        <div className="rounded-sm border border-[#e0d8cc] p-4">
+          <label className="mb-4 flex items-center gap-2 text-sm font-medium text-[#2c2c2c]">
+            <input
+              type="checkbox"
+              checked={config.gifts.custom.enabled}
+              onChange={(e) =>
+                setConfig({
+                  ...config,
+                  gifts: {
+                    ...config.gifts,
+                    custom: { ...config.gifts.custom, enabled: e.target.checked },
+                  },
+                })
+              }
+            />
+            Mostrar otra mesa de regalos
+          </label>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <label className={labelClass}>Título (ej. Amazon, Palacio de Hierro)</label>
+              <input
+                className={inputClass}
+                value={config.gifts.custom.title}
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      custom: { ...config.gifts.custom, title: e.target.value },
+                    },
+                  })
+                }
+              />
+            </div>
+            <div>
+              <label className={labelClass}>Referencia / No. de evento</label>
+              <input
+                className={inputClass}
+                value={config.gifts.custom.reference}
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      custom: { ...config.gifts.custom, reference: e.target.value },
+                    },
+                  })
+                }
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className={labelClass}>URL</label>
+              <input
+                className={inputClass}
+                value={config.gifts.custom.url}
+                placeholder="https://..."
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      custom: { ...config.gifts.custom, url: e.target.value },
+                    },
+                  })
+                }
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className={labelClass}>Descripción</label>
+              <textarea
+                className={inputClass}
+                rows={2}
+                value={config.gifts.custom.description}
+                onChange={(e) =>
+                  setConfig({
+                    ...config,
+                    gifts: {
+                      ...config.gifts,
+                      custom: { ...config.gifts.custom, description: e.target.value },
+                    },
+                  })
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Sobre */}
+      <section className="rounded-sm border border-[#e0d8cc] bg-white p-6">
+        <h2 className="mb-4 flex items-center gap-2 font-serif text-xl text-[#2c2c2c]">
+          <MailOpen className="h-5 w-5 text-[#8b9d83]" />
+          Experiencia de entrada
+        </h2>
+        <div className="space-y-4">
           <label className="flex items-center gap-2 text-sm">
             <input
               type="checkbox"

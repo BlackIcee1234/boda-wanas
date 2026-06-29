@@ -3,11 +3,16 @@
 import { useState } from "react";
 import { NAV_SECTIONS } from "@/lib/defaults";
 import { useSiteConfig } from "@/context/SiteContext";
+import { hasVisibleGifts } from "@/lib/gifts";
 import { Heart, Menu, X } from "lucide-react";
 
 export function Navigation() {
   const { config } = useSiteConfig();
   const [open, setOpen] = useState(false);
+
+  const sections = NAV_SECTIONS.filter(
+    (s) => s.id !== "regalos" || hasVisibleGifts(config.gifts)
+  );
 
   function scrollTo(id: string) {
     setOpen(false);
@@ -37,7 +42,7 @@ export function Navigation() {
         </button>
 
         <ul className="hidden items-center gap-5 lg:gap-6 md:flex">
-          {NAV_SECTIONS.map((section) => (
+          {sections.map((section) => (
             <li key={section.id}>
               <button
                 type="button"
@@ -54,7 +59,7 @@ export function Navigation() {
       {open && (
         <div className="border-t border-[#e0d8cc]/50 bg-[#faf7f2]/95 px-4 py-4 md:hidden">
           <ul className="flex flex-col gap-3">
-            {NAV_SECTIONS.map((section) => (
+            {sections.map((section) => (
               <li key={section.id}>
                 <button
                   type="button"

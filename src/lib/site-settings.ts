@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/db";
 import { DEFAULT_SITE_CONFIG } from "@/lib/defaults";
-import type { SiteConfig } from "@/types/site-config";
+import type { GiftsConfig, SiteConfig } from "@/types/site-config";
 import type { Prisma } from "@/generated/prisma/client";
 
 const SETTINGS_ID = "default";
@@ -34,8 +34,41 @@ export async function updateSiteConfig(
   return merged;
 }
 
+function normalizeGifts(
+  partial: Partial<GiftsConfig> | Record<string, unknown> | undefined,
+  base: GiftsConfig
+): GiftsConfig {
+  if (!partial) return base;
+
+  if ("bankTransfer" in partial && partial.bankTransfer) {
+    const p = partial as Partial<GiftsConfig>;
+    return {
+      ...base,
+      ...p,
+      bankTransfer: { ...base.bankTransfer, ...p.bankTransfer },
+      liverpool: { ...base.liverpool, ...(p.liverpool ?? {}) },
+      custom: { ...base.custom, ...(p.custom ?? {}) },
+    };
+  }
+
+  const legacy = partial as Record<string, string>;
+  return {
+    ...base,
+    sectionTitle: legacy.title ?? base.sectionTitle,
+    sectionSubtitle: legacy.subtitle ?? base.sectionSubtitle,
+    bankTransfer: {
+      ...base.bankTransfer,
+      enabled: true,
+      bank: legacy.bank ?? base.bankTransfer.bank,
+      accountName: legacy.accountName ?? base.bankTransfer.accountName,
+      clabe: legacy.clabe ?? base.bankTransfer.clabe,
+      concept: legacy.concept ?? base.bankTransfer.concept,
+    },
+  };
+}
+
 function mergeConfig(base: SiteConfig, partial: Partial<SiteConfig>): SiteConfig {
-  const merged: SiteConfig = {
+  return {
     ...base,
     ...partial,
     couple: { ...base.couple, ...partial.couple },
@@ -47,17 +80,10 @@ function mergeConfig(base: SiteConfig, partial: Partial<SiteConfig>): SiteConfig
       ladies: { ...base.dressCode.ladies, ...partial.dressCode?.ladies },
       gentlemen: { ...base.dressCode.gentlemen, ...partial.dressCode?.gentlemen },
     },
-    gifts: { ...base.gifts, ...partial.gifts },
-    music: { ...base.music, ...partial.music },
+    gifts: normalizeGifts(partial.gifts, base.gifts),
     envelope: { ...base.envelope, ...partial.envelope },
     seo: { ...base.seo, ...partial.seo },
     galleryImages: partial.galleryImages ?? base.galleryImages,
     timeline: partial.timeline ?? base.timeline,
   };
-
-  if (merged.music.url?.includes("mixkit.co")) {
-    merged.music.url = DEFAULT_SITE_CONFIG.music.url;
-  }
-
-  return merged;
 }

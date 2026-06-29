@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { SiteProvider } from "@/context/SiteContext";
-import { MusicProvider } from "@/context/MusicContext";
 import { EnvelopeIntro, shouldShowEnvelope } from "@/components/EnvelopeIntro";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
@@ -12,7 +10,6 @@ import { Gallery } from "@/components/Gallery";
 import { RSVP } from "@/components/RSVP";
 import { GiftRegistry } from "@/components/GiftRegistry";
 import { Footer } from "@/components/Footer";
-import { MusicPlayer } from "@/components/MusicPlayer";
 import { useSiteConfig } from "@/context/SiteContext";
 
 function WeddingContent() {
@@ -44,18 +41,11 @@ function WeddingContent() {
           <GiftRegistry />
         </main>
         <Footer />
-        <MusicPlayer />
       </div>
     </>
   );
 }
 
 export function WeddingApp() {
-  return (
-    <SiteProvider>
-      <MusicProvider>
-        <WeddingContent />
-      </MusicProvider>
-    </SiteProvider>
-  );
+  return <WeddingContent />;
 }

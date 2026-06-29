@@ -25,6 +25,39 @@ export interface SiteSeo {
   shareImage: string;
 }
 
+export interface BankTransferGift {
+  enabled: boolean;
+  title: string;
+  bank: string;
+  accountName: string;
+  clabe: string;
+  concept: string;
+}
+
+export interface LiverpoolGift {
+  enabled: boolean;
+  title: string;
+  eventNumber: string;
+  url: string;
+  description: string;
+}
+
+export interface CustomGift {
+  enabled: boolean;
+  title: string;
+  description: string;
+  url: string;
+  reference: string;
+}
+
+export interface GiftsConfig {
+  sectionTitle: string;
+  sectionSubtitle: string;
+  bankTransfer: BankTransferGift;
+  liverpool: LiverpoolGift;
+  custom: CustomGift;
+}
+
 export interface SiteConfig {
   couple: {
     bride: string;
@@ -61,20 +94,9 @@ export interface SiteConfig {
       colors: ColorSwatch[];
     };
   };
-  gifts: {
-    title: string;
-    subtitle: string;
-    bank: string;
-    accountName: string;
-    clabe: string;
-    concept: string;
-  };
+  gifts: GiftsConfig;
   heroImage: string;
   galleryImages: GalleryImage[];
-  music: {
-    enabled: boolean;
-    url: string;
-  };
   envelope: {
     enabled: boolean;
     message: string;

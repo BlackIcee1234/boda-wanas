@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Invitación de Boda — Ailyn & Oswaldo
 
-## Getting Started
+Invitación digital elegante y responsiva para la boda del 27 de noviembre de 2026.
 
-First, run the development server:
+## Características
+
+- Diseño elegante, minimalista y responsivo
+- Cuenta regresiva en tiempo real
+- Información de ceremonia y recepción con Google Maps
+- Galería de fotos (placeholders listos para reemplazar)
+- RSVP con código de invitación y límite de acompañantes
+- Mesa de regalos con datos bancarios
+- Panel de administración para los novios
+- Importación y exportación de invitados vía Excel
+
+## Desarrollo local
 
 ```bash
+npm install
+cp .env.example .env
+# Configura DATABASE_URL en .env
+npx prisma db push
+npm run db:seed
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Invitación: http://localhost:3000
+- Panel admin: http://localhost:3000/admin (contraseña en `ADMIN_PASSWORD`)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Códigos de prueba
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Código    | Invitado           | Máx. personas |
+|-----------|--------------------|---------------|
+| DEMO01    | Invitado de Prueba | 2             |
+| FAMILIA01 | Familia Pérez      | 4             |
+| AMIGOS01  | Carlos Rodríguez   | 1             |
 
-## Learn More
+## Importar invitados (Excel)
 
-To learn more about Next.js, take a look at the following resources:
+Columnas requeridas: `codigo`, `nombre`, `telefono`, `max_invitados`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Variables de entorno
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Variable         | Descripción                          |
+|------------------|--------------------------------------|
+| DATABASE_URL     | PostgreSQL (Vercel Postgres / Neon)  |
+| ADMIN_PASSWORD   | Contraseña del panel de novios       |
+| ADMIN_SECRET     | Secreto JWT para sesión admin        |
 
-## Deploy on Vercel
+## Deploy en Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Conecta el repositorio en Vercel
+2. Agrega Vercel Postgres desde el Marketplace
+3. Configura `ADMIN_PASSWORD` y `ADMIN_SECRET`
+4. Deploy automático en cada push

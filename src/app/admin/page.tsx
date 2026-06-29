@@ -124,7 +124,7 @@ export default function AdminPage() {
           className="w-full max-w-sm rounded-sm border border-[#e0d8cc] bg-white p-8 shadow-sm"
         >
           <h1 className="mb-6 text-center font-serif text-2xl text-[#2c2c2c]">
-            Panel de Novios
+            Boda A&O
           </h1>
           <label htmlFor="password" className="mb-1 block text-xs uppercase tracking-[0.15em] text-[#8b9d83]">
             Contraseña
@@ -154,7 +154,7 @@ export default function AdminPage() {
     <div className="min-h-screen bg-[#faf7f2] px-4 py-8 sm:px-6">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="font-serif text-3xl text-[#2c2c2c]">Panel de Control</h1>
+          <h1 className="font-serif text-3xl text-[#2c2c2c]">Boda A&O — Panel</h1>
           {tab === "guests" && (
             <a
               href="/api/admin/import"

@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Lora, Great_Vibes } from "next/font/google";
 import "./globals.css";
-import { DEFAULT_SITE_CONFIG } from "@/lib/defaults";
+import { buildSiteMetadata } from "@/lib/metadata";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -21,19 +21,9 @@ const greatVibes = Great_Vibes({
   variable: "--font-cursive",
 });
 
-export const metadata: Metadata = {
-  title: `${DEFAULT_SITE_CONFIG.couple.display} — Invitación de Boda`,
-  description: DEFAULT_SITE_CONFIG.welcomeMessage,
-  icons: {
-    icon: "/icon.svg",
-    apple: "/icon.svg",
-  },
-  openGraph: {
-    title: `${DEFAULT_SITE_CONFIG.couple.display} — Invitación de Boda`,
-    description: DEFAULT_SITE_CONFIG.welcomeMessage,
-    type: "website",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return buildSiteMetadata();
+}
 
 export const viewport: Viewport = {
   width: "device-width",

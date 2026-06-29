@@ -1,0 +1,14 @@
+export function getSiteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return "https://boda-ao.vercel.app";
+}
+
+export function absoluteUrl(path: string): string {
+  if (path.startsWith("http")) return path;
+  return `${getSiteUrl()}${path.startsWith("/") ? path : `/${path}`}`;
+}

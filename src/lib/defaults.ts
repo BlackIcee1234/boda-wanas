@@ -75,11 +75,18 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
   ],
   music: {
     enabled: true,
-    url: "https://assets.mixkit.co/music/preview/mixkit-love-583.mp3",
+    url: "/music/romantic.mp3",
   },
   envelope: {
     enabled: true,
     message: "Estás invitado a nuestra boda",
+  },
+  seo: {
+    siteName: "Boda A&O",
+    shareTitle: "Ailyn & Oswaldo — Invitación de Boda",
+    shareDescription:
+      "¡Llegó el gran día! Acompáñanos a celebrar el inicio de nuestra nueva historia. 27 de Noviembre, 2026.",
+    shareImage: "/boda/optimized/hero.jpg",
   },
   timeline: [
     {

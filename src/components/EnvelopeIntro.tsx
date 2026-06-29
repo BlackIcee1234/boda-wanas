@@ -4,11 +4,13 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import { useSiteConfig } from "@/context/SiteContext";
+import { useMusic } from "@/context/MusicContext";
 
 const STORAGE_KEY = "boda_envelope_seen";
 
 export function EnvelopeIntro({ onComplete }: { onComplete: () => void }) {
   const { config } = useSiteConfig();
+  const { unlockAndPlay } = useMusic();
   const [phase, setPhase] = useState<"closed" | "opening" | "done">("closed");
 
   if (!config.envelope.enabled) {
@@ -17,6 +19,9 @@ export function EnvelopeIntro({ onComplete }: { onComplete: () => void }) {
 
   function handleOpen() {
     setPhase("opening");
+    if (config.music.enabled) {
+      unlockAndPlay();
+    }
     setTimeout(() => {
       setPhase("done");
       localStorage.setItem(STORAGE_KEY, "true");

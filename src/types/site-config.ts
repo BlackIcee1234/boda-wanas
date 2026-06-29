@@ -18,6 +18,13 @@ export interface TimelineEvent {
   mapsUrl?: string;
 }
 
+export interface SiteSeo {
+  siteName: string;
+  shareTitle: string;
+  shareDescription: string;
+  shareImage: string;
+}
+
 export interface SiteConfig {
   couple: {
     bride: string;
@@ -73,4 +80,5 @@ export interface SiteConfig {
     message: string;
   };
   timeline: TimelineEvent[];
+  seo: SiteSeo;
 }

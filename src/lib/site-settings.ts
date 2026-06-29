@@ -35,7 +35,7 @@ export async function updateSiteConfig(
 }
 
 function mergeConfig(base: SiteConfig, partial: Partial<SiteConfig>): SiteConfig {
-  return {
+  const merged: SiteConfig = {
     ...base,
     ...partial,
     couple: { ...base.couple, ...partial.couple },
@@ -50,7 +50,14 @@ function mergeConfig(base: SiteConfig, partial: Partial<SiteConfig>): SiteConfig
     gifts: { ...base.gifts, ...partial.gifts },
     music: { ...base.music, ...partial.music },
     envelope: { ...base.envelope, ...partial.envelope },
+    seo: { ...base.seo, ...partial.seo },
     galleryImages: partial.galleryImages ?? base.galleryImages,
     timeline: partial.timeline ?? base.timeline,
   };
+
+  if (merged.music.url?.includes("mixkit.co")) {
+    merged.music.url = DEFAULT_SITE_CONFIG.music.url;
+  }
+
+  return merged;
 }

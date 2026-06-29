@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Lora } from "next/font/google";
+import { Cormorant_Garamond, Lora, Great_Vibes } from "next/font/google";
 import "./globals.css";
-import { WEDDING } from "@/lib/constants";
+import { DEFAULT_SITE_CONFIG } from "@/lib/defaults";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -15,12 +15,22 @@ const lora = Lora({
   variable: "--font-body",
 });
 
+const greatVibes = Great_Vibes({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-cursive",
+});
+
 export const metadata: Metadata = {
-  title: `${WEDDING.couple.display} — Invitación de Boda`,
-  description: WEDDING.welcomeMessage,
+  title: `${DEFAULT_SITE_CONFIG.couple.display} — Invitación de Boda`,
+  description: DEFAULT_SITE_CONFIG.welcomeMessage,
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+  },
   openGraph: {
-    title: `${WEDDING.couple.display} — Invitación de Boda`,
-    description: WEDDING.welcomeMessage,
+    title: `${DEFAULT_SITE_CONFIG.couple.display} — Invitación de Boda`,
+    description: DEFAULT_SITE_CONFIG.welcomeMessage,
     type: "website",
   },
 };
@@ -37,7 +47,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className={`${cormorant.variable} ${lora.variable} scroll-smooth`}>
+    <html
+      lang="es"
+      className={`${cormorant.variable} ${lora.variable} ${greatVibes.variable} scroll-smooth`}
+    >
       <body className="font-body antialiased">{children}</body>
     </html>
   );

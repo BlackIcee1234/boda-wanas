@@ -2,9 +2,13 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { GALLERY_IMAGES } from "@/lib/constants";
+import { Images } from "lucide-react";
+import { useSiteConfig } from "@/context/SiteContext";
 
 export function Gallery() {
+  const { config } = useSiteConfig();
+  const images = config.galleryImages;
+
   return (
     <section id="galeria" className="bg-[#faf7f2] px-4 py-16 sm:px-6 sm:py-20 md:py-24">
       <div className="mx-auto max-w-6xl">
@@ -14,7 +18,8 @@ export function Gallery() {
           viewport={{ once: true }}
           className="mb-12 text-center"
         >
-          <p className="mb-2 font-serif text-xs uppercase tracking-[0.35em] text-[#8b9d83]">
+          <p className="mb-2 flex items-center justify-center gap-2 font-serif text-xs uppercase tracking-[0.35em] text-[#8b9d83]">
+            <Images className="h-4 w-4" />
             Galería
           </p>
           <h2 className="font-serif text-3xl text-[#2c2c2c] sm:text-4xl md:text-5xl">
@@ -23,7 +28,7 @@ export function Gallery() {
         </motion.div>
 
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 md:gap-6">
-          {GALLERY_IMAGES.map((photo, index) => (
+          {images.map((photo, index) => (
             <motion.div
               key={photo.id}
               initial={{ opacity: 0, scale: 0.95 }}

@@ -1,6 +1,8 @@
 "use client";
 
 import { FormEvent, useCallback, useEffect, useState } from "react";
+import { Users, Settings, Download, Upload } from "lucide-react";
+import { AdminCustomize } from "@/components/admin/AdminCustomize";
 
 interface Stats {
   totalGuests: number;
@@ -42,6 +44,7 @@ export default function AdminPage() {
   const [guests, setGuests] = useState<GuestRow[]>([]);
   const [filter, setFilter] = useState<"all" | "confirmed" | "pending">("all");
   const [importMessage, setImportMessage] = useState("");
+  const [tab, setTab] = useState<"guests" | "customize">("guests");
 
   const loadData = useCallback(async () => {
     const res = await fetch("/api/admin/guests");
@@ -152,14 +155,48 @@ export default function AdminPage() {
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="font-serif text-3xl text-[#2c2c2c]">Panel de Control</h1>
-          <a
-            href="/api/admin/import"
-            className="inline-flex items-center justify-center rounded-sm border border-[#8b9d83] bg-[#8b9d83] px-5 py-2 text-sm uppercase tracking-[0.1em] text-white"
-          >
-            Exportar Excel
-          </a>
+          {tab === "guests" && (
+            <a
+              href="/api/admin/import"
+              className="inline-flex items-center justify-center gap-2 rounded-sm border border-[#8b9d83] bg-[#8b9d83] px-5 py-2 text-sm uppercase tracking-[0.1em] text-white"
+            >
+              <Download className="h-4 w-4" />
+              Exportar Excel
+            </a>
+          )}
         </div>
 
+        <div className="mb-8 flex gap-2">
+          <button
+            type="button"
+            onClick={() => setTab("guests")}
+            className={`inline-flex items-center gap-2 rounded-sm px-5 py-2.5 text-sm ${
+              tab === "guests"
+                ? "bg-[#8b9d83] text-white"
+                : "border border-[#e0d8cc] bg-white text-[#5c5348]"
+            }`}
+          >
+            <Users className="h-4 w-4" />
+            Invitados
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab("customize")}
+            className={`inline-flex items-center gap-2 rounded-sm px-5 py-2.5 text-sm ${
+              tab === "customize"
+                ? "bg-[#8b9d83] text-white"
+                : "border border-[#e0d8cc] bg-white text-[#5c5348]"
+            }`}
+          >
+            <Settings className="h-4 w-4" />
+            Personalizar sitio
+          </button>
+        </div>
+
+        {tab === "customize" ? (
+          <AdminCustomize />
+        ) : (
+          <>
         {stats && (
           <div className="mb-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
             {[
@@ -199,8 +236,9 @@ export default function AdminPage() {
             />
             <button
               type="submit"
-              className="rounded-sm bg-[#8b9d83] px-5 py-2 text-sm uppercase tracking-[0.1em] text-white"
+              className="inline-flex items-center gap-2 rounded-sm bg-[#8b9d83] px-5 py-2 text-sm uppercase tracking-[0.1em] text-white"
             >
+              <Upload className="h-4 w-4" />
               Importar
             </button>
           </form>
@@ -267,6 +305,8 @@ export default function AdminPage() {
             </tbody>
           </table>
         </div>
+          </>
+        )}
       </div>
     </div>
   );

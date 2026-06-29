@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { NAV_SECTIONS } from "@/lib/constants";
+import { NAV_SECTIONS } from "@/lib/defaults";
+import { useSiteConfig } from "@/context/SiteContext";
+import { Heart, Menu, X } from "lucide-react";
 
 export function Navigation() {
+  const { config } = useSiteConfig();
   const [open, setOpen] = useState(false);
 
   function scrollTo(id: string) {
@@ -17,36 +20,29 @@ export function Navigation() {
         <button
           type="button"
           onClick={() => scrollTo("inicio")}
-          className="font-serif text-sm tracking-[0.15em] text-[#2c2c2c] sm:text-base"
+          className="flex items-center gap-1.5 font-cursive text-lg text-[#2c2c2c] sm:text-xl"
         >
-          A & O
+          <Heart className="h-4 w-4 text-[#8b9d83]" fill="#8b9d83" />
+          {config.couple.bride.charAt(0)} & {config.couple.groom.charAt(0)}
         </button>
 
         <button
           type="button"
           onClick={() => setOpen(!open)}
-          className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="flex h-10 w-10 items-center justify-center md:hidden"
           aria-label="Menú"
           aria-expanded={open}
         >
-          <span
-            className={`block h-0.5 w-5 bg-[#2c2c2c] transition-transform ${open ? "translate-y-2 rotate-45" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-5 bg-[#2c2c2c] transition-opacity ${open ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`block h-0.5 w-5 bg-[#2c2c2c] transition-transform ${open ? "-translate-y-2 -rotate-45" : ""}`}
-          />
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
 
-        <ul className="hidden items-center gap-6 md:flex">
+        <ul className="hidden items-center gap-5 lg:gap-6 md:flex">
           {NAV_SECTIONS.map((section) => (
             <li key={section.id}>
               <button
                 type="button"
                 onClick={() => scrollTo(section.id)}
-                className="text-xs uppercase tracking-[0.15em] text-[#5c5348] transition-colors hover:text-[#8b9d83]"
+                className="text-xs uppercase tracking-[0.12em] text-[#5c5348] transition-colors hover:text-[#8b9d83]"
               >
                 {section.label}
               </button>

@@ -43,7 +43,15 @@ body {
   font-family: var(--font-body);
 }
 
+.font-cursive {
+  font-family: var(--font-cursive), "Great Vibes", cursive;
+}
+
 ::selection {
   background: #8b9d83;
   color: white;
+}
+
+.perspective-\[1200px\] {
+  perspective: 1200px;
 }

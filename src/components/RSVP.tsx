@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
+import { Mail, User, Phone, Users, Utensils, CheckCircle2 } from "lucide-react";
 
 interface GuestData {
   id: string;
@@ -105,7 +106,8 @@ export function RSVP() {
           viewport={{ once: true }}
           className="mb-10 text-center"
         >
-          <p className="mb-2 font-serif text-xs uppercase tracking-[0.35em] text-[#8b9d83]">
+          <p className="mb-2 flex items-center justify-center gap-2 font-serif text-xs uppercase tracking-[0.35em] text-[#8b9d83]">
+            <Mail className="h-4 w-4" />
             Confirmación
           </p>
           <h2 className="font-serif text-3xl text-[#2c2c2c] sm:text-4xl md:text-5xl">
@@ -151,7 +153,10 @@ export function RSVP() {
             animate={{ opacity: 1, scale: 1 }}
             className="rounded-sm border border-[#8b9d83] bg-white/80 p-8 text-center"
           >
-            <p className="font-serif text-2xl text-[#2c2c2c]">¡Gracias!</p>
+            <p className="font-serif text-2xl text-[#2c2c2c] flex items-center justify-center gap-2">
+              <CheckCircle2 className="h-6 w-6 text-[#8b9d83]" />
+              ¡Gracias!
+            </p>
             <p className="mt-3 text-[#5c5348]">
               Tu confirmación ha sido registrada exitosamente.
             </p>
@@ -170,7 +175,8 @@ export function RSVP() {
             </div>
 
             <div>
-              <label htmlFor="name" className="mb-1 block text-xs uppercase tracking-[0.15em] text-[#8b9d83]">
+              <label htmlFor="name" className="mb-1 flex items-center gap-1.5 text-xs uppercase tracking-[0.15em] text-[#8b9d83]">
+                <User className="h-3.5 w-3.5" />
                 Nombre del invitado principal
               </label>
               <input
@@ -184,7 +190,8 @@ export function RSVP() {
             </div>
 
             <div>
-              <label htmlFor="phone" className="mb-1 block text-xs uppercase tracking-[0.15em] text-[#8b9d83]">
+              <label htmlFor="phone" className="mb-1 flex items-center gap-1.5 text-xs uppercase tracking-[0.15em] text-[#8b9d83]">
+                <Phone className="h-3.5 w-3.5" />
                 Teléfono
               </label>
               <input
@@ -234,7 +241,8 @@ export function RSVP() {
             {attendance === "YES" && (
               <>
                 <div>
-                  <label htmlFor="guestCount" className="mb-1 block text-xs uppercase tracking-[0.15em] text-[#8b9d83]">
+                  <label htmlFor="guestCount" className="mb-1 flex items-center gap-1.5 text-xs uppercase tracking-[0.15em] text-[#8b9d83]">
+                    <Users className="h-3.5 w-3.5" />
                     Número de asistentes (máx. {guest.maxGuests})
                   </label>
                   <input
@@ -266,7 +274,8 @@ export function RSVP() {
                 )}
 
                 <fieldset>
-                  <legend className="mb-2 text-xs uppercase tracking-[0.15em] text-[#8b9d83]">
+                  <legend className="mb-2 flex items-center gap-1.5 text-xs uppercase tracking-[0.15em] text-[#8b9d83]">
+                    <Utensils className="h-3.5 w-3.5" />
                     Tipo de comida
                   </legend>
                   <div className="flex flex-wrap gap-3">

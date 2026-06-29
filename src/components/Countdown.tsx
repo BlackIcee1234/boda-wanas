@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { WEDDING } from "@/lib/constants";
+import { Clock, Timer } from "lucide-react";
+import { useSiteConfig } from "@/context/SiteContext";
 
 interface TimeLeft {
   days: number;
@@ -11,8 +12,8 @@ interface TimeLeft {
   seconds: number;
 }
 
-function calculateTimeLeft(): TimeLeft {
-  const target = new Date(WEDDING.date).getTime();
+function calculateTimeLeft(targetDate: string): TimeLeft {
+  const target = new Date(targetDate).getTime();
   const now = Date.now();
   const diff = Math.max(0, target - now);
 
@@ -38,13 +39,17 @@ function TimeBlock({ value, label }: { value: number; label: string }) {
 }
 
 export function Countdown() {
+  const { config } = useSiteConfig();
   const [timeLeft, setTimeLeft] = useState<TimeLeft | null>(null);
 
   useEffect(() => {
-    setTimeLeft(calculateTimeLeft());
-    const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
+    setTimeLeft(calculateTimeLeft(config.date));
+    const timer = setInterval(
+      () => setTimeLeft(calculateTimeLeft(config.date)),
+      1000
+    );
     return () => clearInterval(timer);
-  }, []);
+  }, [config.date]);
 
   return (
     <section
@@ -58,12 +63,17 @@ export function Countdown() {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <p className="mb-2 font-serif text-xs uppercase tracking-[0.35em] text-[#8b9d83]">
+          <p className="mb-2 flex items-center justify-center gap-2 font-serif text-xs uppercase tracking-[0.35em] text-[#8b9d83]">
+            <Timer className="h-4 w-4" />
             Cuenta regresiva
           </p>
-          <h2 className="mb-10 font-serif text-3xl text-[#2c2c2c] sm:text-4xl md:text-5xl">
+          <h2 className="mb-2 font-serif text-3xl text-[#2c2c2c] sm:text-4xl md:text-5xl">
             Faltan
           </h2>
+          <p className="mb-10 flex items-center justify-center gap-2 text-sm text-[#5c5348]">
+            <Clock className="h-4 w-4 text-[#8b9d83]" />
+            {config.dateDisplay}
+          </p>
         </motion.div>
 
         {timeLeft && (

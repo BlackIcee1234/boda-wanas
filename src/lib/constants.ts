@@ -43,14 +43,26 @@ export const WEDDING = {
   },
 } as const;
 
-export const GALLERY_PLACEHOLDERS = [
-  { id: 1, alt: "Foto de los novios 1", label: "Nuestra historia" },
-  { id: 2, alt: "Foto de los novios 2", label: "Juntos" },
-  { id: 3, alt: "Foto de los novios 3", label: "El compromiso" },
-  { id: 4, alt: "Foto de los novios 4", label: "Amor eterno" },
-  { id: 5, alt: "Foto de los novios 5", label: "Nuestro camino" },
-  { id: 6, alt: "Foto de los novios 6", label: "Para siempre" },
+export const WEDDING_IMAGES = {
+  hero: "/boda/optimized/hero.jpg",
+} as const;
+
+export const GALLERY_IMAGES = [
+  { id: 1, src: "/boda/optimized/gallery-1.jpg", alt: "Ailyn y Oswaldo" },
+  { id: 2, src: "/boda/optimized/gallery-2.jpg", alt: "Momentos juntos" },
+  { id: 3, src: "/boda/optimized/gallery-3.jpg", alt: "Nuestra historia" },
+  { id: 4, src: "/boda/optimized/gallery-4.jpg", alt: "El compromiso" },
+  { id: 5, src: "/boda/optimized/gallery-5.jpg", alt: "Celebrando el amor" },
+  { id: 6, src: "/boda/optimized/gallery-6.jpg", alt: "Juntos para siempre" },
+  { id: 7, src: "/boda/optimized/gallery-7.jpg", alt: "Nuestro camino" },
+  { id: 8, src: "/boda/optimized/gallery-8.jpg", alt: "Recuerdos especiales" },
+  { id: 9, src: "/boda/optimized/gallery-9.jpg", alt: "Amor eterno" },
+  { id: 10, src: "/boda/optimized/gallery-10.jpg", alt: "Momentos únicos" },
+  { id: 11, src: "/boda/optimized/gallery-11.jpg", alt: "Nuestra aventura" },
+  { id: 12, src: "/boda/optimized/gallery-12.jpg", alt: "Para siempre" },
 ] as const;
+
+export const GALLERY_PLACEHOLDERS = GALLERY_IMAGES;
 
 export const NAV_SECTIONS = [
   { id: "inicio", label: "Inicio" },

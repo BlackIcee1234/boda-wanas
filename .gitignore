@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# raw wedding photos (use public/boda/optimized for deploy)
+/public/boda/IMG_*.jpg
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

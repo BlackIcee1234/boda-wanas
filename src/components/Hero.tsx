@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { WEDDING } from "@/lib/constants";
+import { WEDDING, WEDDING_IMAGES } from "@/lib/constants";
 
 export function Hero() {
   const [mounted, setMounted] = useState(false);
@@ -26,19 +27,16 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="mx-auto mb-8 aspect-[4/5] w-full max-w-sm overflow-hidden rounded-sm shadow-2xl sm:max-w-md md:max-w-lg"
+          className="relative mx-auto mb-8 aspect-[4/5] w-full max-w-sm overflow-hidden rounded-sm shadow-2xl sm:max-w-md md:max-w-lg"
         >
-          <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[#d4c4a8] via-[#e8ddd0] to-[#b8a88a]">
-            <div className="border border-white/40 p-8 text-center">
-              <p className="font-serif text-sm uppercase tracking-[0.35em] text-[#5c5348]">
-                Foto principal
-              </p>
-              <p className="mt-3 font-serif text-2xl text-[#3d3832] sm:text-3xl">
-                {WEDDING.couple.display}
-              </p>
-              <p className="mt-2 text-xs text-[#6b6358]">Placeholder — reemplazar con foto</p>
-            </div>
-          </div>
+          <Image
+            src={WEDDING_IMAGES.hero}
+            alt={`${WEDDING.couple.display} — foto principal`}
+            fill
+            priority
+            sizes="(max-width: 640px) 90vw, (max-width: 768px) 448px, 512px"
+            className="object-cover object-center"
+          />
         </motion.div>
 
         <motion.p

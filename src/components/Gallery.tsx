@@ -1,7 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { GALLERY_PLACEHOLDERS } from "@/lib/constants";
+import { GALLERY_IMAGES } from "@/lib/constants";
 
 export function Gallery() {
   return (
@@ -22,23 +23,30 @@ export function Gallery() {
         </motion.div>
 
         <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 md:gap-6">
-          {GALLERY_PLACEHOLDERS.map((photo, index) => (
+          {GALLERY_IMAGES.map((photo, index) => (
             <motion.div
               key={photo.id}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
+              transition={{ duration: 0.5, delay: index * 0.06 }}
               className={`group relative overflow-hidden rounded-sm ${
-                index === 0 ? "col-span-2 row-span-2 aspect-[4/3] md:aspect-auto md:min-h-[320px]" : "aspect-square"
+                index === 0
+                  ? "col-span-2 row-span-2 aspect-[4/3] md:aspect-auto md:min-h-[320px]"
+                  : "aspect-square"
               }`}
             >
-              <div className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-[#d4c4a8] via-[#e8ddd0] to-[#b8a88a] transition-transform duration-500 group-hover:scale-105">
-                <span className="font-serif text-sm uppercase tracking-[0.2em] text-[#5c5348] sm:text-base">
-                  {photo.label}
-                </span>
-                <span className="mt-2 text-xs text-[#6b6358]">Foto {photo.id}</span>
-              </div>
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                fill
+                sizes={
+                  index === 0
+                    ? "(max-width: 768px) 100vw, 66vw"
+                    : "(max-width: 768px) 50vw, 33vw"
+                }
+                className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+              />
             </motion.div>
           ))}
         </div>

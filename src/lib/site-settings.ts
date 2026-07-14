@@ -67,6 +67,35 @@ function normalizeGifts(
   };
 }
 
+function normalizeTimeline(
+  timeline: SiteConfig["timeline"] | undefined,
+  base: SiteConfig["timeline"]
+): SiteConfig["timeline"] {
+  if (!timeline?.length) return base;
+
+  const hasPhotos = timeline.some(
+    (t) => t.id === "photos" || /sesi[oó]n de fotos|fotos/i.test(t.title)
+  );
+  const hasCocktail = timeline.some(
+    (t) => t.id === "cocktail" || /c[oó]ctel/i.test(t.title)
+  );
+
+  // Migrate stale itineraries that still include photo session / miss cocktail
+  if (hasPhotos || !hasCocktail) return base;
+  return timeline;
+}
+
+function normalizeLadiesColors(
+  colors: SiteConfig["dressCode"]["ladies"]["colors"] | undefined,
+  base: SiteConfig["dressCode"]["ladies"]["colors"]
+) {
+  const list = colors?.length ? colors : base;
+  const hasBlack = list.some(
+    (c) => c.hex.toLowerCase() === "#1a1a1a" || c.name.toLowerCase() === "negro"
+  );
+  return hasBlack ? list : [...list, { hex: "#1A1A1A", name: "Negro" }];
+}
+
 function mergeConfig(base: SiteConfig, partial: Partial<SiteConfig>): SiteConfig {
   return {
     ...base,
@@ -77,13 +106,38 @@ function mergeConfig(base: SiteConfig, partial: Partial<SiteConfig>): SiteConfig
     dressCode: {
       ...base.dressCode,
       ...partial.dressCode,
-      ladies: { ...base.dressCode.ladies, ...partial.dressCode?.ladies },
+      ladies: {
+        ...base.dressCode.ladies,
+        ...partial.dressCode?.ladies,
+        colors: normalizeLadiesColors(
+          partial.dressCode?.ladies?.colors,
+          base.dressCode.ladies.colors
+        ),
+      },
       gentlemen: { ...base.dressCode.gentlemen, ...partial.dressCode?.gentlemen },
     },
     gifts: normalizeGifts(partial.gifts, base.gifts),
+    family: {
+      ...base.family,
+      ...partial.family,
+      brideParents: {
+        ...base.family.brideParents,
+        ...partial.family?.brideParents,
+      },
+      groomParents: {
+        ...base.family.groomParents,
+        ...partial.family?.groomParents,
+      },
+      godparents: partial.family?.godparents ?? base.family.godparents,
+    },
+    phrases: {
+      ...base.phrases,
+      ...partial.phrases,
+      items: partial.phrases?.items ?? base.phrases.items,
+    },
     envelope: { ...base.envelope, ...partial.envelope },
     seo: { ...base.seo, ...partial.seo },
     galleryImages: partial.galleryImages ?? base.galleryImages,
-    timeline: partial.timeline ?? base.timeline,
+    timeline: normalizeTimeline(partial.timeline, base.timeline),
   };
 }

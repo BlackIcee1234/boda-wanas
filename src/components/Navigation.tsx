@@ -10,9 +10,19 @@ export function Navigation() {
   const { config } = useSiteConfig();
   const [open, setOpen] = useState(false);
 
-  const sections = NAV_SECTIONS.filter(
-    (s) => s.id !== "regalos" || hasVisibleGifts(config.gifts)
-  );
+  const sections = NAV_SECTIONS.filter((s) => {
+    if (s.id === "regalos") return hasVisibleGifts(config.gifts);
+    if (s.id === "familia") {
+      const f = config.family;
+      if (!f?.enabled) return false;
+      return Boolean(
+        f.brideParents?.names?.trim() ||
+          f.groomParents?.names?.trim() ||
+          f.godparents?.some((g) => g.names?.trim())
+      );
+    }
+    return true;
+  });
 
   function scrollTo(id: string) {
     setOpen(false);
@@ -28,7 +38,13 @@ export function Navigation() {
           className="flex items-center gap-1.5 font-cursive text-lg text-[#2c2c2c] sm:text-xl"
         >
           <Heart className="h-4 w-4 text-[#8b9d83]" fill="#8b9d83" />
-          {config.couple.bride.charAt(0)} & {config.couple.groom.charAt(0)}
+          <span className="font-cursive text-[1.35em] leading-none">
+            {config.couple.bride.charAt(0).toUpperCase()}
+          </span>
+          <span className="mx-0.5 font-cursive text-base">&</span>
+          <span className="font-cursive text-[1.35em] leading-none">
+            {config.couple.groom.charAt(0).toUpperCase()}
+          </span>
         </button>
 
         <button

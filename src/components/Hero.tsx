@@ -6,6 +6,19 @@ import { motion } from "framer-motion";
 import { Calendar, ChevronDown } from "lucide-react";
 import { useSiteConfig } from "@/context/SiteContext";
 
+function CursiveName({ name, className }: { name: string; className?: string }) {
+  const first = name.charAt(0);
+  const rest = name.slice(1);
+  return (
+    <span className={className}>
+      <span className="inline-block origin-bottom font-cursive text-[1.12em] leading-none">
+        {first}
+      </span>
+      <span className="font-cursive">{rest}</span>
+    </span>
+  );
+}
+
 export function Hero() {
   const { config } = useSiteConfig();
   const [mounted, setMounted] = useState(false);
@@ -52,9 +65,9 @@ export function Hero() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 1 }}
-                  className="font-cursive text-5xl leading-none sm:text-6xl md:text-7xl lg:text-8xl"
+                  className="text-5xl leading-none sm:text-6xl md:text-7xl lg:text-8xl"
                 >
-                  {bride}
+                  <CursiveName name={bride} />
                 </motion.h1>
                 <motion.span
                   initial={{ opacity: 0, scale: 0 }}
@@ -68,9 +81,9 @@ export function Hero() {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.5, duration: 1 }}
-                  className="font-cursive text-5xl leading-none sm:text-6xl md:text-7xl lg:text-8xl"
+                  className="text-5xl leading-none sm:text-6xl md:text-7xl lg:text-8xl"
                 >
-                  {groom}
+                  <CursiveName name={groom} />
                 </motion.h1>
               </div>
             )}

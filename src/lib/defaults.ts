@@ -35,6 +35,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
         { hex: "#B8838B", name: "Rosa polvo" },
         { hex: "#7A2E3D", name: "Borgoña" },
         { hex: "#3D1C24", name: "Granate" },
+        { hex: "#1A1A1A", name: "Negro" },
       ],
     },
     gentlemen: {
@@ -76,6 +77,33 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       reference: "",
     },
   },
+  family: {
+    enabled: true,
+    sectionTitle: "Con la bendición de",
+    sectionSubtitle: "Nuestros padres y padrinos",
+    brideParents: {
+      names: "",
+    },
+    groomParents: {
+      names: "",
+    },
+    godparents: [
+      { role: "Padrinos de velación", names: "" },
+    ],
+  },
+  phrases: {
+    enabled: true,
+    items: [
+      {
+        id: "phrase-1",
+        text: "Hoy unimos dos caminos para caminar juntos el resto de la vida.",
+      },
+      {
+        id: "phrase-2",
+        text: "El amor no se mira, se siente; y aún más se siente cuando se mira juntos.",
+      },
+    ],
+  },
   heroImage: "/boda/optimized/hero.jpg",
   galleryImages: [
     { id: 1, src: "/boda/optimized/gallery-1.jpg", alt: "Ailyn y Oswaldo" },
@@ -112,30 +140,23 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       mapsUrl: "https://maps.app.goo.gl/ZSZ3R5EgQ8rnH7iN6",
     },
     {
-      id: "photos",
-      time: "5:30 PM",
-      title: "Sesión de Fotos",
-      description: "Capturando recuerdos con familia y amigos",
-      icon: "camera",
-    },
-    {
-      id: "reception",
-      time: "6:30 PM",
-      title: "Recepción",
-      description: "Somabela Jardín de Eventos",
-      icon: "party",
+      id: "cocktail",
+      time: "6:30 – 7:30 PM",
+      title: "Cóctel",
+      description: "Bienvenida y brindis en Somabela Jardín de Eventos",
+      icon: "wine",
       mapsUrl: "https://maps.app.goo.gl/kvb7ABFBEFLanXzQ9",
     },
     {
       id: "dinner",
-      time: "7:30 PM",
+      time: "8:00 PM",
       title: "Cena",
       description: "Banquete y brindis en honor a los novios",
       icon: "utensils",
     },
     {
       id: "dance",
-      time: "9:00 PM",
+      time: "9:30 PM",
       title: "Baile y Fiesta",
       description: "¡A celebrar juntos toda la noche!",
       icon: "music",
@@ -146,9 +167,10 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
 export const NAV_SECTIONS = [
   { id: "inicio", label: "Inicio" },
   { id: "cuenta-regresiva", label: "Cuenta Regresiva" },
+  { id: "familia", label: "Familia" },
   { id: "timeline", label: "Itinerario" },
   { id: "evento", label: "Evento" },
-  { id: "galeria", label: "Galería" },
-  { id: "rsvp", label: "RSVP" },
   { id: "regalos", label: "Regalos" },
+  { id: "rsvp", label: "RSVP" },
+  { id: "galeria", label: "Galería" },
 ] as const;

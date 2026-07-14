@@ -10,6 +10,7 @@ import {
   Heart,
   MapPin,
   ExternalLink,
+  Wine,
 } from "lucide-react";
 import { useSiteConfig } from "@/context/SiteContext";
 import { ColorPalette } from "@/components/ColorPalette";
@@ -22,6 +23,7 @@ const iconMap = {
   utensils: UtensilsCrossed,
   music: Music,
   heart: Heart,
+  wine: Wine,
 };
 
 function TimelineIcon({ icon, index }: { icon: TimelineEvent["icon"]; index: number }) {
@@ -160,7 +162,7 @@ export function DressCodeSection() {
               <p className="text-sm leading-relaxed text-[#6b6358]">
                 {config.dressCode.ladies.tip}
               </p>
-              <ColorPalette colors={config.dressCode.ladies.colors} label="The Colors" />
+              <ColorPalette colors={config.dressCode.ladies.colors} label="Colores" />
             </div>
             <div>
               <h4 className="mb-2 flex items-center gap-2 font-serif text-lg text-[#8b7355]">
@@ -171,7 +173,7 @@ export function DressCodeSection() {
               <p className="text-sm leading-relaxed text-[#6b6358]">
                 {config.dressCode.gentlemen.tip}
               </p>
-              <ColorPalette colors={config.dressCode.gentlemen.colors} label="The Colors" />
+              <ColorPalette colors={config.dressCode.gentlemen.colors} label="Colores" />
             </div>
           </div>
         </motion.div>

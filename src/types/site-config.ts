@@ -14,7 +14,7 @@ export interface TimelineEvent {
   time: string;
   title: string;
   description: string;
-  icon: "church" | "party" | "camera" | "utensils" | "music" | "heart";
+  icon: "church" | "party" | "camera" | "utensils" | "music" | "heart" | "wine";
   mapsUrl?: string;
 }
 
@@ -58,6 +58,35 @@ export interface GiftsConfig {
   custom: CustomGift;
 }
 
+export interface FamilyPerson {
+  names: string;
+}
+
+export interface Godparent {
+  role: string;
+  names: string;
+}
+
+export interface FamilyConfig {
+  enabled: boolean;
+  sectionTitle: string;
+  sectionSubtitle: string;
+  brideParents: FamilyPerson;
+  groomParents: FamilyPerson;
+  godparents: Godparent[];
+}
+
+export interface CustomPhrase {
+  id: string;
+  text: string;
+  attribution?: string;
+}
+
+export interface PhrasesConfig {
+  enabled: boolean;
+  items: CustomPhrase[];
+}
+
 export interface SiteConfig {
   couple: {
     bride: string;
@@ -95,6 +124,8 @@ export interface SiteConfig {
     };
   };
   gifts: GiftsConfig;
+  family: FamilyConfig;
+  phrases: PhrasesConfig;
   heroImage: string;
   galleryImages: GalleryImage[];
   envelope: {

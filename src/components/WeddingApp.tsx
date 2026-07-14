@@ -5,6 +5,8 @@ import { EnvelopeIntro, shouldShowEnvelope } from "@/components/EnvelopeIntro";
 import { Navigation } from "@/components/Navigation";
 import { Hero } from "@/components/Hero";
 import { Countdown } from "@/components/Countdown";
+import { PhrasesSection } from "@/components/PhrasesSection";
+import { FamilySection } from "@/components/FamilySection";
 import { EventTimeline, DressCodeSection } from "@/components/EventTimeline";
 import { Gallery } from "@/components/Gallery";
 import { RSVP } from "@/components/RSVP";
@@ -34,11 +36,13 @@ function WeddingContent() {
         <main className="pt-0">
           <Hero />
           <Countdown />
+          <PhrasesSection />
+          <FamilySection />
           <EventTimeline />
           <DressCodeSection />
-          <Gallery />
-          <RSVP />
           <GiftRegistry />
+          <RSVP />
+          <Gallery />
         </main>
         <Footer />
       </div>

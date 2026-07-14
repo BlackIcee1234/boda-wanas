@@ -16,6 +16,8 @@ import {
   Trash2,
   Shirt,
   MailOpen,
+  Users,
+  Quote,
 } from "lucide-react";
 import type { SiteConfig, TimelineEvent } from "@/types/site-config";
 
@@ -30,6 +32,7 @@ const TIMELINE_ICONS: TimelineEvent["icon"][] = [
   "utensils",
   "music",
   "heart",
+  "wine",
 ];
 
 function ColorEditor({
@@ -262,6 +265,235 @@ export function AdminCustomize() {
               onChange={(e) => setConfig({ ...config, date: e.target.value })}
             />
           </div>
+        </div>
+      </section>
+
+      {/* Papás y padrinos */}
+      <section className="rounded-sm border border-[#e0d8cc] bg-white p-6">
+        <h2 className="mb-4 flex items-center gap-2 font-serif text-xl text-[#2c2c2c]">
+          <Users className="h-5 w-5 text-[#8b9d83]" />
+          Papás y padrinos
+        </h2>
+        <label className="mb-4 flex items-center gap-2 text-sm text-[#5c5348]">
+          <input
+            type="checkbox"
+            checked={config.family.enabled}
+            onChange={(e) =>
+              setConfig({
+                ...config,
+                family: { ...config.family, enabled: e.target.checked },
+              })
+            }
+          />
+          Mostrar sección
+        </label>
+        <div className="mb-4 grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className={labelClass}>Título</label>
+            <input
+              className={inputClass}
+              value={config.family.sectionTitle}
+              onChange={(e) =>
+                setConfig({
+                  ...config,
+                  family: { ...config.family, sectionTitle: e.target.value },
+                })
+              }
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Subtítulo</label>
+            <input
+              className={inputClass}
+              value={config.family.sectionSubtitle}
+              onChange={(e) =>
+                setConfig({
+                  ...config,
+                  family: { ...config.family, sectionSubtitle: e.target.value },
+                })
+              }
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Padres de la novia (usa Enter para 2 líneas)</label>
+            <textarea
+              className={inputClass}
+              rows={2}
+              value={config.family.brideParents.names}
+              onChange={(e) =>
+                setConfig({
+                  ...config,
+                  family: {
+                    ...config.family,
+                    brideParents: { names: e.target.value },
+                  },
+                })
+              }
+              placeholder="Nombre y Nombre"
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Padres del novio (usa Enter para 2 líneas)</label>
+            <textarea
+              className={inputClass}
+              rows={2}
+              value={config.family.groomParents.names}
+              onChange={(e) =>
+                setConfig({
+                  ...config,
+                  family: {
+                    ...config.family,
+                    groomParents: { names: e.target.value },
+                  },
+                })
+              }
+              placeholder="Nombre y Nombre"
+            />
+          </div>
+        </div>
+        <div className="space-y-3">
+          <p className={labelClass}>Padrinos</p>
+          {config.family.godparents.map((g, i) => (
+            <div key={i} className="grid gap-3 rounded-sm border border-[#e0d8cc] p-3 sm:grid-cols-[1fr_2fr_auto]">
+              <input
+                className={inputClass}
+                value={g.role}
+                placeholder="Rol (ej. Padrinos de velación)"
+                onChange={(e) => {
+                  const godparents = [...config.family.godparents];
+                  godparents[i] = { ...g, role: e.target.value };
+                  setConfig({ ...config, family: { ...config.family, godparents } });
+                }}
+              />
+              <input
+                className={inputClass}
+                value={g.names}
+                placeholder="Nombres"
+                onChange={(e) => {
+                  const godparents = [...config.family.godparents];
+                  godparents[i] = { ...g, names: e.target.value };
+                  setConfig({ ...config, family: { ...config.family, godparents } });
+                }}
+              />
+              <button
+                type="button"
+                onClick={() =>
+                  setConfig({
+                    ...config,
+                    family: {
+                      ...config.family,
+                      godparents: config.family.godparents.filter((_, idx) => idx !== i),
+                    },
+                  })
+                }
+                className="text-red-500"
+                aria-label="Eliminar padrinos"
+              >
+                <Trash2 className="h-4 w-4" />
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() =>
+              setConfig({
+                ...config,
+                family: {
+                  ...config.family,
+                  godparents: [
+                    ...config.family.godparents,
+                    { role: "Padrinos", names: "" },
+                  ],
+                },
+              })
+            }
+            className="inline-flex items-center gap-1 text-sm text-[#8b9d83]"
+          >
+            <Plus className="h-4 w-4" /> Agregar padrinos
+          </button>
+        </div>
+      </section>
+
+      {/* Frases */}
+      <section className="rounded-sm border border-[#e0d8cc] bg-white p-6">
+        <h2 className="mb-4 flex items-center gap-2 font-serif text-xl text-[#2c2c2c]">
+          <Quote className="h-5 w-5 text-[#8b9d83]" />
+          Frases personalizadas
+        </h2>
+        <label className="mb-4 flex items-center gap-2 text-sm text-[#5c5348]">
+          <input
+            type="checkbox"
+            checked={config.phrases.enabled}
+            onChange={(e) =>
+              setConfig({
+                ...config,
+                phrases: { ...config.phrases, enabled: e.target.checked },
+              })
+            }
+          />
+          Mostrar frases
+        </label>
+        <div className="space-y-3">
+          {config.phrases.items.map((phrase, i) => (
+            <div key={phrase.id} className="rounded-sm border border-[#e0d8cc] p-3">
+              <div className="mb-2 flex justify-end">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setConfig({
+                      ...config,
+                      phrases: {
+                        ...config.phrases,
+                        items: config.phrases.items.filter((_, idx) => idx !== i),
+                      },
+                    })
+                  }
+                  className="text-red-500"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
+              <textarea
+                className={`${inputClass} mb-2`}
+                rows={2}
+                value={phrase.text}
+                placeholder="Texto de la frase"
+                onChange={(e) => {
+                  const items = [...config.phrases.items];
+                  items[i] = { ...phrase, text: e.target.value };
+                  setConfig({ ...config, phrases: { ...config.phrases, items } });
+                }}
+              />
+              <input
+                className={inputClass}
+                value={phrase.attribution ?? ""}
+                placeholder="Atribución (opcional)"
+                onChange={(e) => {
+                  const items = [...config.phrases.items];
+                  items[i] = { ...phrase, attribution: e.target.value };
+                  setConfig({ ...config, phrases: { ...config.phrases, items } });
+                }}
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() =>
+              setConfig({
+                ...config,
+                phrases: {
+                  ...config.phrases,
+                  items: [
+                    ...config.phrases.items,
+                    { id: `phrase-${Date.now()}`, text: "", attribution: "" },
+                  ],
+                },
+              })
+            }
+            className="inline-flex items-center gap-1 text-sm text-[#8b9d83]"
+          >
+            <Plus className="h-4 w-4" /> Agregar frase
+          </button>
         </div>
       </section>
 

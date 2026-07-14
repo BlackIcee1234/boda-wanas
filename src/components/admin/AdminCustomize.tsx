@@ -1,13 +1,13 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { upload } from "@vercel/blob/client";
 import {
   Save,
   Image as ImageIcon,
   Mail,
   Heart,
-  Palette,
   Type,
   Share2,
   Clock,
@@ -18,6 +18,7 @@ import {
   MailOpen,
   Users,
   Quote,
+  Loader2,
 } from "lucide-react";
 import type { SiteConfig, TimelineEvent } from "@/types/site-config";
 
@@ -92,6 +93,9 @@ export function AdminCustomize() {
   const [images, setImages] = useState<string[]>([]);
   const [message, setMessage] = useState("");
   const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadMessage, setUploadMessage] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const load = useCallback(async () => {
     const [settingsRes, imagesRes] = await Promise.all([
@@ -108,6 +112,65 @@ export function AdminCustomize() {
   useEffect(() => {
     load();
   }, [load]);
+
+  async function handleUploadFiles(files: FileList | null) {
+    if (!files?.length) return;
+
+    setUploading(true);
+    setUploadMessage("");
+    let uploaded = 0;
+    let failed = 0;
+
+    try {
+      for (const file of Array.from(files)) {
+        if (!file.type.startsWith("image/")) {
+          failed += 1;
+          continue;
+        }
+
+        try {
+          const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "-");
+          const blob = await upload(`boda/${Date.now()}-${safeName}`, file, {
+            access: "public",
+            handleUploadUrl: "/api/admin/images",
+            contentType: file.type,
+          });
+
+          setImages((prev) =>
+            prev.includes(blob.url) ? prev : [...prev, blob.url]
+          );
+
+          // Auto-add to gallery so new photos show without extra clicks
+          setConfig((current) => {
+            if (!current) return current;
+            if (current.galleryImages.some((g) => g.src === blob.url)) return current;
+            return {
+              ...current,
+              galleryImages: [
+                ...current.galleryImages,
+                {
+                  id: Date.now() + uploaded,
+                  src: blob.url,
+                  alt: current.couple.display,
+                },
+              ],
+            };
+          });
+
+          uploaded += 1;
+        } catch {
+          failed += 1;
+        }
+      }
+
+      setUploadMessage(
+        `Subidas: ${uploaded}${failed ? ` · Fallidas: ${failed}` : ""}. Recuerda guardar los cambios.`
+      );
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
 
   async function handleSave(e: FormEvent) {
     e.preventDefault();
@@ -503,6 +566,32 @@ export function AdminCustomize() {
           <ImageIcon className="h-5 w-5 text-[#8b9d83]" />
           Imágenes
         </h2>
+
+        <div className="mb-6 rounded-sm border border-dashed border-[#cfc5b6] bg-[#faf7f2] p-4">
+          <label className={labelClass}>Subir fotos nuevas</label>
+          <p className="mb-3 text-sm text-[#6b6358]">
+            JPG, PNG o WEBP · hasta 12 MB por archivo · puedes seleccionar varias a la vez
+          </p>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/jpg"
+            multiple
+            disabled={uploading}
+            onChange={(e) => handleUploadFiles(e.target.files)}
+            className="block w-full text-sm text-[#5c5348] file:mr-3 file:rounded-sm file:border-0 file:bg-[#8b9d83] file:px-4 file:py-2 file:text-sm file:uppercase file:tracking-[0.1em] file:text-white"
+          />
+          {uploading && (
+            <p className="mt-3 inline-flex items-center gap-2 text-sm text-[#8b9d83]">
+              <Loader2 className="h-4 w-4 animate-spin" />
+              Subiendo imágenes...
+            </p>
+          )}
+          {uploadMessage && !uploading && (
+            <p className="mt-3 text-sm text-[#5c5348]">{uploadMessage}</p>
+          )}
+        </div>
+
         <label className={labelClass}>Foto principal (Hero)</label>
         <div className="mb-6 grid grid-cols-3 gap-2 sm:grid-cols-4 md:grid-cols-6">
           {images.map((src) => (
@@ -514,7 +603,7 @@ export function AdminCustomize() {
                 config.heroImage === src ? "border-[#8b9d83] ring-2 ring-[#8b9d83]/30" : ""
               }`}
             >
-              <Image src={src} alt="" fill className="object-cover" sizes="100px" />
+              <Image src={src} alt="" fill className="object-cover" sizes="100px" unoptimized={src.startsWith("http")} />
             </button>
           ))}
         </div>
@@ -550,7 +639,7 @@ export function AdminCustomize() {
                   inGallery ? "border-[#8b9d83]" : "opacity-50"
                 }`}
               >
-                <Image src={src} alt="" fill className="object-cover" sizes="100px" />
+                <Image src={src} alt="" fill className="object-cover" sizes="100px" unoptimized={src.startsWith("http")} />
               </button>
             );
           })}

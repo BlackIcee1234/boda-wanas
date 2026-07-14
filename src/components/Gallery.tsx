@@ -51,6 +51,7 @@ export function Gallery() {
                     : "(max-width: 768px) 50vw, 33vw"
                 }
                 className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                unoptimized={photo.src.startsWith("http")}
               />
             </motion.div>
           ))}

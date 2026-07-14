@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Lora, Great_Vibes } from "next/font/google";
+import { Cormorant_Garamond, Lora, Great_Vibes, Allura } from "next/font/google";
 import "./globals.css";
 import { buildSiteMetadata } from "@/lib/metadata";
 
@@ -21,6 +21,13 @@ const greatVibes = Great_Vibes({
   variable: "--font-cursive",
 });
 
+/** Clearer capital “A” for hero names while staying elegant script */
+const allura = Allura({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-script",
+});
+
 export async function generateMetadata(): Promise<Metadata> {
   return buildSiteMetadata();
 }
@@ -39,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${cormorant.variable} ${lora.variable} ${greatVibes.variable} scroll-smooth`}
+      className={`${cormorant.variable} ${lora.variable} ${greatVibes.variable} ${allura.variable} scroll-smooth`}
     >
       <body className="font-body antialiased">{children}</body>
     </html>

@@ -6,15 +6,16 @@ import { motion } from "framer-motion";
 import { Calendar, ChevronDown } from "lucide-react";
 import { useSiteConfig } from "@/context/SiteContext";
 
-function CursiveName({ name, className }: { name: string; className?: string }) {
+function ScriptName({ name }: { name: string }) {
   const first = name.charAt(0);
   const rest = name.slice(1);
+
   return (
-    <span className={className}>
-      <span className="inline-block origin-bottom font-cursive text-[1.12em] leading-none">
+    <span className="font-script">
+      <span className="inline-block origin-bottom text-[1.18em] leading-none tracking-wide">
         {first}
       </span>
-      <span className="font-cursive">{rest}</span>
+      <span className="leading-none">{rest}</span>
     </span>
   );
 }
@@ -43,6 +44,7 @@ export function Hero() {
             priority
             sizes="100vw"
             className="object-cover object-center"
+            unoptimized={config.heroImage.startsWith("http")}
           />
           {/* Overlay gradiente */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
@@ -67,13 +69,13 @@ export function Hero() {
                   transition={{ delay: 0.6, duration: 1 }}
                   className="text-5xl leading-none sm:text-6xl md:text-7xl lg:text-8xl"
                 >
-                  <CursiveName name={bride} />
+                  <ScriptName name={bride} />
                 </motion.h1>
                 <motion.span
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.2, duration: 0.6 }}
-                  className="my-1 font-cursive text-3xl text-[#e8ddd0] sm:text-4xl md:text-5xl"
+                  className="my-1 font-script text-3xl text-[#e8ddd0] sm:text-4xl md:text-5xl"
                 >
                   &
                 </motion.span>
@@ -83,7 +85,7 @@ export function Hero() {
                   transition={{ delay: 1.5, duration: 1 }}
                   className="text-5xl leading-none sm:text-6xl md:text-7xl lg:text-8xl"
                 >
-                  <CursiveName name={groom} />
+                  <ScriptName name={groom} />
                 </motion.h1>
               </div>
             )}

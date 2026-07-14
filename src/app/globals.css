@@ -49,8 +49,14 @@ body {
   text-transform: none;
 }
 
+.font-script {
+  font-family: var(--font-script), "Allura", cursive;
+  font-style: normal;
+  text-transform: none;
+}
+
 .font-cursive-cap {
-  font-family: var(--font-cursive), "Great Vibes", cursive;
+  font-family: var(--font-script), "Allura", cursive;
   font-style: normal;
   text-transform: none;
   display: inline-block;

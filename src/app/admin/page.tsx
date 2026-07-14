@@ -53,7 +53,9 @@ export default function AdminPage() {
       setStats(data.stats);
       setGuests(data.guests);
       setAuthenticated(true);
+      return true;
     }
+    return false;
   }, []);
 
   useEffect(() => {
@@ -77,7 +79,12 @@ export default function AdminPage() {
         return;
       }
 
-      await loadData();
+      const ok = await loadData();
+      if (!ok) {
+        setLoginError(
+          "Sesión creada, pero no se pudo conectar a la base de datos. Revisa DATABASE_URL en Vercel."
+        );
+      }
     } catch {
       setLoginError("Error al iniciar sesión");
     } finally {

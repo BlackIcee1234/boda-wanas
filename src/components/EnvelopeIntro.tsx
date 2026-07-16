@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart } from "lucide-react";
 import { useSiteConfig } from "@/context/SiteContext";
+import { CursiveText } from "@/components/CursiveText";
 
 const STORAGE_KEY = "boda_envelope_seen";
 
@@ -77,8 +78,8 @@ export function EnvelopeIntro({ onComplete }: { onComplete: () => void }) {
                 transition={{ duration: 1, delay: phase === "opening" ? 0.3 : 0 }}
               >
                 <Heart className="mb-3 h-8 w-8 text-[#8b9d83]" fill="#8b9d83" />
-                <p className="font-cursive text-2xl text-[#2c2c2c] sm:text-3xl">
-                  {config.couple.display}
+                <p className="text-2xl text-[#2c2c2c] sm:text-3xl">
+                  <CursiveText text={config.couple.display} />
                 </p>
                 <p className="mt-2 text-sm text-[#6b6358]">{config.envelope.message}</p>
                 <p className="mt-1 font-serif text-xs uppercase tracking-[0.3em] text-[#8b9d83]">

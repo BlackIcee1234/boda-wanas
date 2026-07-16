@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { useSiteConfig } from "@/context/SiteContext";
+import { CursiveText } from "@/components/CursiveText";
 
 export function PhrasesSection() {
   const { config } = useSiteConfig();
@@ -41,8 +42,8 @@ export function PhrasesSection() {
 
           <blockquote className="text-center">
             <Quote className="mx-auto mb-4 h-5 w-5 text-[#c4a77d]" />
-            <p className="font-cursive text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl md:text-4xl">
-              {phrase.text}
+            <p className="text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl md:text-4xl">
+              <CursiveText text={phrase.text} mode="first" />
             </p>
             {phrase.attribution && (
               <footer className="mt-4 font-serif text-xs uppercase tracking-[0.25em] text-[#8b9d83]">

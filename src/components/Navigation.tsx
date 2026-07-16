@@ -5,6 +5,7 @@ import { NAV_SECTIONS } from "@/lib/defaults";
 import { useSiteConfig } from "@/context/SiteContext";
 import { hasVisibleGifts } from "@/lib/gifts";
 import { Heart, Menu, X } from "lucide-react";
+import { CursiveText } from "@/components/CursiveText";
 
 export function Navigation() {
   const { config } = useSiteConfig();
@@ -35,16 +36,13 @@ export function Navigation() {
         <button
           type="button"
           onClick={() => scrollTo("inicio")}
-          className="flex items-center gap-1.5 font-cursive text-lg text-[#2c2c2c] sm:text-xl"
+          className="flex items-center gap-1.5 text-lg text-[#2c2c2c] sm:text-xl"
         >
           <Heart className="h-4 w-4 text-[#8b9d83]" fill="#8b9d83" />
-          <span className="font-cursive text-[1.4em] leading-none">
-            {config.couple.bride.charAt(0).toUpperCase()}
-          </span>
-          <span className="mx-0.5 font-cursive text-base leading-none">&</span>
-          <span className="font-cursive text-[1.4em] leading-none">
-            {config.couple.groom.charAt(0).toUpperCase()}
-          </span>
+          <CursiveText
+            text={`${config.couple.bride.charAt(0).toUpperCase()} & ${config.couple.groom.charAt(0).toUpperCase()}`}
+            className="text-[1.35em] leading-none"
+          />
         </button>
 
         <button

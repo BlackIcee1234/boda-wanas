@@ -9,7 +9,7 @@ export function ColorPalette({
 }) {
   return (
     <div className="mt-4">
-      <p className="font-cursive mb-3 text-xl text-[#5c5348] sm:text-2xl">{label}</p>
+      <p className="font-script mb-3 text-xl text-[#5c5348] sm:text-2xl">{label}</p>
       <div className="flex flex-wrap justify-center gap-3 sm:justify-start sm:gap-4">
         {colors.map((color) => (
           <div key={color.hex} className="group flex flex-col items-center gap-1.5">

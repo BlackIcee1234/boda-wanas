@@ -26,7 +26,7 @@ async function main() {
     return;
   }
 
-  const current = row.data as SiteConfig;
+  const current = row.data as unknown as SiteConfig;
   const updated: SiteConfig = {
     ...current,
     galleryImages: DEFAULT_SITE_CONFIG.galleryImages,

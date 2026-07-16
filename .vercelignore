@@ -1,1 +1,6 @@
+public/boda/invitacion-src
 public/boda/IMG_*.jpg
+.env*
+.vercel
+node_modules
+scripts

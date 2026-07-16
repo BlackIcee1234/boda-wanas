@@ -38,6 +38,7 @@ yarn-error.log*
 
 # raw wedding photos (use public/boda/optimized for deploy)
 /public/boda/IMG_*.jpg
+/public/boda/invitacion-src/
 
 # typescript
 *.tsbuildinfo

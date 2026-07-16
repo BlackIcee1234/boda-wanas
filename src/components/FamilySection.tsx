@@ -48,7 +48,7 @@ export function FamilySection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                 >
-                  <p className="mb-3 whitespace-pre-line text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl">
+                  <p className="mb-3 overflow-visible whitespace-pre-line py-1 text-2xl leading-[1.55] text-[#2c2c2c] sm:text-3xl sm:leading-[1.5]">
                     <CursiveText text={brideParents} />
                   </p>
                   <p className="font-serif text-xs uppercase tracking-[0.25em] text-[#8b9d83]">
@@ -63,7 +63,7 @@ export function FamilySection() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
                 >
-                  <p className="mb-3 whitespace-pre-line text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl">
+                  <p className="mb-3 overflow-visible whitespace-pre-line py-1 text-2xl leading-[1.55] text-[#2c2c2c] sm:text-3xl sm:leading-[1.5]">
                     <CursiveText text={groomParents} />
                   </p>
                   <p className="font-serif text-xs uppercase tracking-[0.25em] text-[#8b9d83]">
@@ -84,7 +84,7 @@ export function FamilySection() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
                 >
-                  <p className="mb-3 whitespace-pre-line text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl">
+                  <p className="mb-3 overflow-visible whitespace-pre-line py-1 text-2xl leading-[1.55] text-[#2c2c2c] sm:text-3xl sm:leading-[1.5]">
                     <CursiveText text={padrino.names} />
                   </p>
                   <p className="flex items-center justify-center gap-2 font-serif text-xs uppercase tracking-[0.25em] text-[#8b9d83]">

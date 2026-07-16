@@ -16,10 +16,10 @@ export function CursiveText({
     const rest = text.slice(1);
     return (
       <span className={`font-script ${className}`.trim()}>
-        <span className="inline-block origin-bottom text-[1.18em] leading-none tracking-wide">
+        <span className="inline-block origin-bottom py-[0.12em] text-[1.18em] leading-none tracking-wide">
           {first}
         </span>
-        <span className="leading-none">{rest}</span>
+        <span className="leading-[1.45]">{rest}</span>
       </span>
     );
   }
@@ -47,10 +47,10 @@ function renderLine(line: string) {
     const rest = part.slice(1);
     return (
       <span key={i}>
-        <span className="inline-block origin-bottom text-[1.18em] leading-none tracking-wide">
+        <span className="inline-block origin-bottom py-[0.12em] text-[1.18em] leading-none tracking-wide">
           {first}
         </span>
-        <span className="leading-none">{rest}</span>
+        <span className="leading-[1.35]">{rest}</span>
       </span>
     );
   });

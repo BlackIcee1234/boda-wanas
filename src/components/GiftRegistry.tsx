@@ -146,7 +146,7 @@ export function GiftRegistry() {
                   className="inline-flex w-full items-center justify-center gap-2 rounded-sm border border-[#8b9d83] px-5 py-3 text-sm uppercase tracking-[0.15em] text-[#5c6b54] transition-colors hover:bg-[#8b9d83] hover:text-white"
                 >
                   <ExternalLink className="h-4 w-4" />
-                  Ver mesa Liverpool
+                  Ver mesa {gifts.liverpool.title}
                 </a>
               )}
             </motion.div>

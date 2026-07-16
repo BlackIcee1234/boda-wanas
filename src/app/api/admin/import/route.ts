@@ -70,13 +70,40 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   const isAdmin = await verifyAdminSession();
   if (!isAdmin) {
     return NextResponse.json({ error: "No autorizado" }, { status: 401 });
   }
 
+  const { searchParams } = new URL(request.url);
+  const mode = searchParams.get("mode");
+
   try {
+    if (mode === "template") {
+      const templateRows = [
+        {
+          codigo: "FAMILIA01",
+          nombre: "Familia Ejemplo",
+          telefono: "3312345678",
+          max_invitados: 2,
+        },
+      ];
+      const worksheet = XLSX.utils.json_to_sheet(templateRows);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Invitados");
+      const buffer = XLSX.write(workbook, { type: "buffer", bookType: "xlsx" });
+
+      return new NextResponse(buffer, {
+        headers: {
+          "Content-Type":
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          "Content-Disposition":
+            'attachment; filename="plantilla-invitados.xlsx"',
+        },
+      });
+    }
+
     const guests = await prisma.guest.findMany({
       include: { rsvp: true },
       orderBy: { name: "asc" },
@@ -102,7 +129,8 @@ export async function GET() {
 
     return new NextResponse(buffer, {
       headers: {
-        "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "Content-Type":
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         "Content-Disposition": 'attachment; filename="invitados-boda.xlsx"',
       },
     });

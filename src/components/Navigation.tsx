@@ -38,11 +38,11 @@ export function Navigation() {
           className="flex items-center gap-1.5 font-cursive text-lg text-[#2c2c2c] sm:text-xl"
         >
           <Heart className="h-4 w-4 text-[#8b9d83]" fill="#8b9d83" />
-          <span className="font-cursive text-[1.35em] leading-none">
+          <span className="font-cursive text-[1.4em] leading-none">
             {config.couple.bride.charAt(0).toUpperCase()}
           </span>
-          <span className="mx-0.5 font-cursive text-base">&</span>
-          <span className="font-cursive text-[1.35em] leading-none">
+          <span className="mx-0.5 font-cursive text-base leading-none">&</span>
+          <span className="font-cursive text-[1.4em] leading-none">
             {config.couple.groom.charAt(0).toUpperCase()}
           </span>
         </button>

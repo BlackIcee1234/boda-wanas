@@ -233,6 +233,15 @@ export default function AdminPage() {
             Columnas requeridas: <code>codigo</code>, <code>nombre</code>, <code>telefono</code>,{" "}
             <code>max_invitados</code>
           </p>
+          <div className="mb-4">
+            <a
+              href="/api/admin/import?mode=template"
+              className="inline-flex items-center gap-2 rounded-sm border border-[#8b9d83] px-4 py-2 text-sm uppercase tracking-[0.1em] text-[#5c6b54] transition-colors hover:bg-[#8b9d83] hover:text-white"
+            >
+              <Download className="h-4 w-4" />
+              Descargar plantilla Excel
+            </a>
+          </div>
           <form onSubmit={handleImport} className="flex flex-col gap-3 sm:flex-row sm:items-end">
             <input
               type="file"

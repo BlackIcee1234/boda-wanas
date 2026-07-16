@@ -116,6 +116,16 @@ export function RSVP() {
           <p className="mt-4 text-sm text-[#5c5348] sm:text-base">
             Ingresa tu código de invitación para confirmar tu asistencia.
           </p>
+          <div className="mx-auto mt-6 max-w-md rounded-sm border border-[#e0d8cc] bg-white/70 px-5 py-4 text-sm leading-relaxed text-[#5c5348]">
+            <p>
+              Aunque nos encantan los más pequeños, en esta ocasión nuestra boda
+              será una celebración solo para adultos.
+            </p>
+            <p className="mt-3">
+              Agradecemos de corazón su comprensión y esperamos celebrar junto a
+              ustedes.
+            </p>
+          </div>
         </motion.div>
 
         {!guest ? (

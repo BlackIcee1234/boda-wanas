@@ -6,13 +6,13 @@ import { motion } from "framer-motion";
 import { Calendar, ChevronDown } from "lucide-react";
 import { useSiteConfig } from "@/context/SiteContext";
 
-function ScriptName({ name }: { name: string }) {
+function CursiveName({ name }: { name: string }) {
   const first = name.charAt(0);
   const rest = name.slice(1);
 
   return (
-    <span className="font-script">
-      <span className="inline-block origin-bottom text-[1.18em] leading-none tracking-wide">
+    <span className="font-cursive">
+      <span className="inline-block origin-bottom text-[1.15em] leading-none">
         {first}
       </span>
       <span className="leading-none">{rest}</span>
@@ -20,9 +20,12 @@ function ScriptName({ name }: { name: string }) {
   );
 }
 
+const HERO_VIDEO_MP4 = "/boda/hero.mp4";
+
 export function Hero() {
   const { config } = useSiteConfig();
   const [mounted, setMounted] = useState(false);
+  const [videoFailed, setVideoFailed] = useState(false);
   const bride = config.couple.bride;
   const groom = config.couple.groom;
 
@@ -32,24 +35,38 @@ export function Hero() {
     document.getElementById("cuenta-regresiva")?.scrollIntoView({ behavior: "smooth" });
   }
 
+  const showVideo = mounted && !videoFailed;
+
   return (
     <section id="inicio" className="relative min-h-[100svh] w-full overflow-hidden">
-      {/* Imagen fullscreen en mobile, contenida en desktop */}
       <div className="absolute inset-0 md:relative md:mx-auto md:max-w-5xl md:px-6 md:pt-6">
         <div className="relative h-[100svh] w-full md:aspect-[16/10] md:h-auto md:max-h-[85svh] md:overflow-hidden md:rounded-sm md:shadow-2xl">
-          <Image
-            src={config.heroImage}
-            alt={`${config.couple.display} — foto principal`}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-center"
-            unoptimized={config.heroImage.startsWith("http")}
-          />
-          {/* Overlay gradiente */}
+          {showVideo ? (
+            <video
+              className="absolute inset-0 h-full w-full object-cover object-center"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={config.heroImage}
+              onError={() => setVideoFailed(true)}
+            >
+              <source src={HERO_VIDEO_MP4} type="video/mp4" />
+            </video>
+          ) : (
+            <Image
+              src={config.heroImage}
+              alt={`${config.couple.display} — foto principal`}
+              fill
+              priority
+              sizes="100vw"
+              className="object-cover object-center"
+              unoptimized={config.heroImage.startsWith("http")}
+            />
+          )}
+
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
 
-          {/* Nombres centrados en cursiva */}
           <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-white">
             <motion.p
               initial={{ opacity: 0, y: -10 }}
@@ -69,13 +86,13 @@ export function Hero() {
                   transition={{ delay: 0.6, duration: 1 }}
                   className="text-5xl leading-none sm:text-6xl md:text-7xl lg:text-8xl"
                 >
-                  <ScriptName name={bride} />
+                  <CursiveName name={bride} />
                 </motion.h1>
                 <motion.span
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 1.2, duration: 0.6 }}
-                  className="my-1 font-script text-3xl text-[#e8ddd0] sm:text-4xl md:text-5xl"
+                  className="my-1 font-cursive text-3xl text-[#e8ddd0] sm:text-4xl md:text-5xl"
                 >
                   &
                 </motion.span>
@@ -85,7 +102,7 @@ export function Hero() {
                   transition={{ delay: 1.5, duration: 1 }}
                   className="text-5xl leading-none sm:text-6xl md:text-7xl lg:text-8xl"
                 >
-                  <ScriptName name={groom} />
+                  <CursiveName name={groom} />
                 </motion.h1>
               </div>
             )}
@@ -111,7 +128,6 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
       <motion.button
         type="button"
         onClick={scrollDown}

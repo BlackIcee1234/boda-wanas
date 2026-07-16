@@ -47,11 +47,11 @@ export function FamilySection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                 >
-                  <p className="mb-2 font-serif text-xs uppercase tracking-[0.25em] text-[#8b9d83]">
-                    Padres de la novia
-                  </p>
-                  <p className="whitespace-pre-line font-cursive text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl">
+                  <p className="mb-3 whitespace-pre-line font-cursive text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl">
                     {brideParents}
+                  </p>
+                  <p className="font-serif text-xs uppercase tracking-[0.25em] text-[#8b9d83]">
+                    Padres de la novia
                   </p>
                 </motion.div>
               )}
@@ -62,11 +62,11 @@ export function FamilySection() {
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 }}
                 >
-                  <p className="mb-2 font-serif text-xs uppercase tracking-[0.25em] text-[#8b9d83]">
-                    Padres del novio
-                  </p>
-                  <p className="whitespace-pre-line font-cursive text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl">
+                  <p className="mb-3 whitespace-pre-line font-cursive text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl">
                     {groomParents}
+                  </p>
+                  <p className="font-serif text-xs uppercase tracking-[0.25em] text-[#8b9d83]">
+                    Padres del novio
                   </p>
                 </motion.div>
               )}
@@ -74,7 +74,7 @@ export function FamilySection() {
           )}
 
           {godparents.length > 0 && (
-            <div className="space-y-6 border-t border-[#e0d8cc] pt-10">
+            <div className="space-y-8 border-t border-[#e0d8cc] pt-10">
               {godparents.map((padrino, i) => (
                 <motion.div
                   key={`${padrino.role}-${i}`}
@@ -83,12 +83,12 @@ export function FamilySection() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08 }}
                 >
-                  <p className="mb-2 flex items-center justify-center gap-2 font-serif text-xs uppercase tracking-[0.25em] text-[#8b9d83]">
+                  <p className="mb-3 whitespace-pre-line font-cursive text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl">
+                    {padrino.names}
+                  </p>
+                  <p className="flex items-center justify-center gap-2 font-serif text-xs uppercase tracking-[0.25em] text-[#8b9d83]">
                     <Heart className="h-3.5 w-3.5" fill="#8b9d83" stroke="#8b9d83" />
                     {padrino.role}
-                  </p>
-                  <p className="whitespace-pre-line font-cursive text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl">
-                    {padrino.names}
                   </p>
                 </motion.div>
               ))}

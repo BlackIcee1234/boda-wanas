@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Quote } from "lucide-react";
 import { useSiteConfig } from "@/context/SiteContext";
@@ -11,20 +12,34 @@ export function PhrasesSection() {
   if (!phrases?.enabled) return null;
 
   const items = (phrases.items ?? []).filter((p) => p.text?.trim());
-  if (items.length === 0) return null;
+  const phrase = items[0];
+  if (!phrase) return null;
+
+  const photo = config.galleryImages[0]?.src || config.heroImage;
 
   return (
     <section id="frases" className="bg-[#faf7f2] px-4 py-14 sm:px-6 sm:py-16 md:py-20">
-      <div className="mx-auto max-w-3xl space-y-10">
-        {items.map((phrase, index) => (
-          <motion.blockquote
-            key={phrase.id}
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1, duration: 0.7 }}
-            className="text-center"
-          >
+      <div className="mx-auto max-w-3xl">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="overflow-hidden rounded-sm"
+        >
+          <div className="relative mb-8 aspect-[16/10] w-full overflow-hidden md:aspect-[21/9]">
+            <Image
+              src={photo}
+              alt={config.couple.display}
+              fill
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover object-center"
+              unoptimized={photo.startsWith("http")}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#faf7f2] via-transparent to-transparent" />
+          </div>
+
+          <blockquote className="text-center">
             <Quote className="mx-auto mb-4 h-5 w-5 text-[#c4a77d]" />
             <p className="font-cursive text-2xl leading-relaxed text-[#2c2c2c] sm:text-3xl md:text-4xl">
               {phrase.text}
@@ -34,8 +49,8 @@ export function PhrasesSection() {
                 — {phrase.attribution}
               </footer>
             )}
-          </motion.blockquote>
-        ))}
+          </blockquote>
+        </motion.div>
       </div>
     </section>
   );
